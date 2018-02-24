@@ -1,0 +1,21 @@
+A values are big endian and default unsigned.
+
+Block Format:
+Block Number (32 bits) - An unsigned integer representing the current block number, the first block is number zero
+Block Time (64 bits) - An unsigned integer representing the time that the block was mined (in milliseconds) since January 1, 1900 at 00:00:00
+Transaction Count (32 bits) - The number of transactions in the block
+Difficulty (64 bits) - The difficulty rating that this block was mined at (the difficulty represents the number of zeroes bits that must be at the front of the hash)
+Miner ID (2048 bits) - The public address of the person who mined the block
+Nonce (128 bits) - A number that miners figure out, a correct nonce will cause the hash of the block will have a number of consecutive zeroes greater or equal to the difficulty rating
+Transaction Entries (8384 bits each) - Each represents a single transaction entry which may be a loan or send transaction
+Solution Hash (512 bits) - Is the hash of the entire block excluding the hash itself, a proper solution hash will have a starting run of zeroes of length difficulty and agree with the client's hash of the block
+
+Entry Format:
+Sender Public Address (2048 bits) - The public address of the sender
+Receiver Public Address (2048 bits) - The public address of the receiver
+Added Loan Fee (64 bits) - An additional fee to add over the amount lent (signed, can be negative) (the amount will be distributed over each payment block rounding down)
+Loan Payment Rate (32 bits) - Over how many blocks should repayment be made over
+Loan Payment Delay (32 bits) - How many blocks should be waited until the payment collection begins, a zero delay means that the transaction is just a send not a lend
+Amount (64 bits) - The amount of coins being sent
+Sender Confirmation (2048 bits) - The result of the transaction entry (excluding the sender address) being "decrypted" with the private key of the sender
+Receiver Confirmation (2048 bits) - Same as the sender confirmation except for the receiver, only required for loans but is otherwise zeroed out for sends
