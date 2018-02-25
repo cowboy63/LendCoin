@@ -8,4 +8,4 @@ Blockchain is the form of our line of credit. There is a genesis block of a set 
 
 
 
-Download our client:
+Download our client: https://lend-coin.net/lendCoin.zip
