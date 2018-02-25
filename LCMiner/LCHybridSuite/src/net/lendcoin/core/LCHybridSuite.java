@@ -1,15 +1,16 @@
 package net.lendcoin.core;
 
 import net.lendcoin.client.LCClient;
+import net.lendcoin.client.Wallet;
 import net.lendcoin.core.netcode.PeerList;
 
 public class LCHybridSuite {
 	public static final void main(final String[] args)throws Exception
 	{
 		System.out.println("+===+==========================================================+===+");
-		System.out.println("|L  |                                                          |L  |");
-		System.out.println("|   |--Lendcoin Hybrid Suite v0.1.1, made with love by DaBois--|   |");
-		System.out.println("|  C|                                                          |  C|");
+		System.out.println("|L /|                                                          |L /|");
+		System.out.println("| / |--Lendcoin Hybrid Suite v0.1.1, made with love by DaBois--| / |");
+		System.out.println("|/ C|                                                          |/ C|");
 		System.out.println("+===+==========================================================+===+");
 		
 		/*
@@ -37,6 +38,9 @@ public class LCHybridSuite {
 		*/
 		
 		LCClient.lccMain(args);
+<<<<<<< HEAD
+		LCClient.startMining();
+=======
 		//Transaction tv = new Transaction(LCClient.MAIN_WALLET.PUB_KEY, LCClient.MAIN_WALLET.PUB_KEY, 20, 10, 20, 100, "00", "00");
 		//tv.updateReceiverConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
 		//tv.updateSenderConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
@@ -44,5 +48,6 @@ public class LCHybridSuite {
 		
 		
 		//LCMiner.lcmMain(args);
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	}
 }

@@ -119,8 +119,8 @@ public class Transaction {
 		BigInteger pubKey = new BigInteger(1, receiverAddress);
 		BigInteger plainHash = new BigInteger(1, computeBodyHash());
 		
-		BigInteger senderConf = plainHash.modPow(privKey, pubKey);
-		byte[] confBuffer = senderConf.toByteArray();
+		BigInteger receiverConf = plainHash.modPow(privKey, pubKey);
+		byte[] confBuffer = receiverConf.toByteArray();
 		
 		for(int i = 0; i < confBuffer.length; i++)
 		{
