@@ -30,9 +30,10 @@ public class LCClient extends Application{
 	
 	public static final void lccMain(final String[] args)throws Exception
 	{
-		launch(args);
 		MAIN_WALLET.PRIV_KEY = Files.readAllBytes(Paths.get("wallet_key.dat"));
 		MAIN_WALLET.PUB_KEY = Files.readAllBytes(Paths.get("wallet_address.dat"));
+		launch(args);
+		
 	}
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -61,13 +62,18 @@ public class LCClient extends Application{
 
         JFXButton button = new JFXButton("New User?");
         button.getStyleClass().add("button-raised");
-        main.add(button, 15, 0);
+        main.add(button, 15, 1);
         
         
         
         JFXButton button2 = new JFXButton("Lend Coins");
         button2.getStyleClass().add("button-raised");
-        main.add(button2, 15, 1);
+        main.add(button2, 15, 2);
+        
+        JFXButton button3 = new JFXButton("Mine");
+        button3.getStyleClass().add("button-raised");
+        main.add(button3, 15, 3);
+        
         final Scene scene = new Scene(main, 600, 300);
         stage.setTitle("Lend Coin");
         stage.setScene(scene);
@@ -78,6 +84,14 @@ public class LCClient extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				MainS(stage);
+				return;
+			}
+		});
+        
+        button3.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				LCClient.startMining();
 				return;
 			}
 		});
@@ -95,7 +109,6 @@ public class LCClient extends Application{
 		GridPane main = new GridPane();
         main.setVgap(10);
         main.setHgap(10);
-
 
         JFXTextArea jfxTextArea = new JFXTextArea();
         jfxTextArea.setPromptText("Sender public Key");
@@ -137,11 +150,25 @@ public class LCClient extends Application{
         button.getStyleClass().add("button-raised");
         main.add(button, 40, 15);
         
-        button2.setOnAction(new EventHandler<ActionEvent>() {
+        button.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				send(jfxTextArea.getText(), Long.parseLong(jfxTextArea2.getText()), Integer.parseInt(jfxTextArea4.getText()), Integer.parseInt(jfxTextArea3.getText()), Long.parseLong(jfxTextArea5.getText()));
+				return;
+			}
+		});
+        
+        button2.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return;
 			}
 		});
