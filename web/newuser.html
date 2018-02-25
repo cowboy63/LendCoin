@@ -1,0 +1,126 @@
+ 
+<!DOCTYPE html>
+<html>
+<title>LendCoin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/* First image (Logo. Full height) */
+.bgimg-1 {
+    /* background-image: url('/images/mountain.jpg'); */
+    background: url("http://media.idownloadblog.com/wp-content/uploads/2016/02/Alex-Muench-Minimalist-Wallpaper-Desktop-1920x1080.png")
+    no-repeat  fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    min-height: 75%;
+    text-align: center;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+.lend-borrow button{
+    margin: 100px;
+}
+
+.opacity-animate{
+    animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:0.8}
+}
+
+.chat {
+  border-radius: 5px 5px 0 0;
+  background: #E71D36;
+  padding: 5px;
+  width: 225px;  
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  color: #FFF;
+  text-align: center;
+}
+
+.chat1 {
+  border-radius: 5px 5px 0 0;
+  background: #2EC4B6;
+  padding: 5px;
+  width: 225px;  
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+  color: #FFF;
+  text-align: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+button {
+    min-width:300px;
+    top: 50%;
+}
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+</style>
+
+<!-- Begin HTML Body -->
+<body>
+
+<!-- Set favicon -->
+<link rel="icon" href="favicon.png">
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <!-- Icon at top of page -->
+        <img src="favicon.png" height="100" width="100">
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+  </div>
+</div>
+
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide opacity-animate" style="opacity: 0.8">WELCOME TO LENDCOIN.</span>
+  
+
+    <!-- Lend/Borrow Section -->
+   <div class="lend-borrow" id="lb" style="display: flex; justify-content: space-around opacity-animate"> 
+       <a href="lend.html"> <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">LEND</button> </a>
+       <a href="borrow.html"><button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">BORROW</button></a>
+        </div>
+    </div>
+
+    </div>
+</div>
+    
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity ">
+  <p>Created with <i class="fa fa-heart"></i> by <a href="https://github.com/cowboy63/LendCoin" title="The Bois" target="_blank" class="w3-hover-text-green">The Bois</a> at HackUTD</p>
+</footer>
+
+</body>
+</html>
