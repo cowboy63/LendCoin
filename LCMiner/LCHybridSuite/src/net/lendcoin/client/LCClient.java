@@ -1,12 +1,20 @@
 package net.lendcoin.client;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import net.lendcoin.core.BlockChain;
+import net.lendcoin.core.LCUtils;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
@@ -43,11 +52,11 @@ public class LCClient extends Application{
 
         Image image = new Image("favicon.png");
         
-       // BackgroundImage myBI= new BackgroundImage(new Image("bg1.jpg",600,300,false,true),
-       //         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-      //            BackgroundSize.DEFAULT);
-        //then you set to your node
-      //  main.setBackground(new Background(myBI));
+       BackgroundImage myBI= new BackgroundImage(new Image("X.jpg",600,300,false,true),
+            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+               BackgroundSize.DEFAULT);
+      // then you set to your node
+        main.setBackground(new Background(myBI));
         
         ImageView iv2 = new ImageView();
         
@@ -60,7 +69,7 @@ public class LCClient extends Application{
 
         main.add(iv2, 0 , 0);
 
-        JFXButton button = new JFXButton("New User?");
+        JFXButton button = new JFXButton("Create new Keys");
         button.getStyleClass().add("button-raised");
         main.add(button, 15, 1);
         
@@ -74,10 +83,36 @@ public class LCClient extends Application{
         button3.getStyleClass().add("button-raised");
         main.add(button3, 15, 3);
         
-        final Scene scene = new Scene(main, 600, 300);
-        stage.setTitle("Lend Coin");
-        stage.setScene(scene);
-        stage.show();
+        JFXButton button4 = new JFXButton("Stop mining");
+        button4.getStyleClass().add("button-raised");
+        main.add(button4, 15, 4);
+        
+        button.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					Wallet a = Wallet.generateWallet();
+					PrintWriter pw2 = new PrintWriter(new File("wallet_key.dat"));
+					pw2.println(LCUtils.bytes2Hex(a.PUB_KEY));
+					pw2.println(LCUtils.bytes2Hex(a.PRIV_KEY));
+					
+					String toastMsg = "New Keys Created";
+					int toastMsgTime = 3500; //3.5 seconds
+					int fadeInTime = 500; //0.5 seconds
+					int fadeOutTime= 500; //0.5 seconds
+					Toast.makeText(stage, toastMsg, toastMsgTime, fadeInTime, fadeOutTime);
+					
+					pw2.close();
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+		});
+        
 		
         button2.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -92,9 +127,33 @@ public class LCClient extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				LCClient.startMining();
+				String toastMsg = "Started Mining";
+				int toastMsgTime = 3500; //3.5 seconds
+				int fadeInTime = 500; //0.5 seconds
+				int fadeOutTime= 500; //0.5 seconds
+				Toast.makeText(stage, toastMsg, toastMsgTime, fadeInTime, fadeOutTime);
 				return;
 			}
 		});
+        
+        button4.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				LCClient.stopMining();
+				String toastMsg = "Stopped Minning";
+				int toastMsgTime = 3500; //3.5 seconds
+				int fadeInTime = 500; //0.5 seconds
+				int fadeOutTime= 500; //0.5 seconds
+				Toast.makeText(stage, toastMsg, toastMsgTime, fadeInTime, fadeOutTime);
+				return;
+			}
+		});
+        
+       
+        final Scene scene = new Scene(main, 600, 300);
+        stage.setTitle("Lend Coin");
+        stage.setScene(scene);
+        stage.show();
         
         
 	}
@@ -110,6 +169,13 @@ public class LCClient extends Application{
         main.setVgap(10);
         main.setHgap(10);
 
+        
+        BackgroundImage myBI= new BackgroundImage(new Image("X.jpg",600,300,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                   BackgroundSize.DEFAULT);
+          // then you set to your node
+            main.setBackground(new Background(myBI));
+            
         JFXTextArea jfxTextArea = new JFXTextArea();
         jfxTextArea.setPromptText("Sender public Key");
         jfxTextArea.setLabelFloat(true);
@@ -179,12 +245,12 @@ public class LCClient extends Application{
 	
 	public void send(String destination, long amount, int delay, int duration, long fees)
 	{
-		
+		// no net code
 	}
 	
 	public static void receive(Transaction inbound)
 	{
-		
+		// no net code
 	}
 	
 	public static long queryBalance()
@@ -203,6 +269,7 @@ public class LCClient extends Application{
 	
 	public static void startMining()
 	{
+		if(miner != null) return;
 		LCMiner.mining = true;
 		miner = new Thread() {
 			public void run()
