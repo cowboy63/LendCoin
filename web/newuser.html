@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html>
 <title>LendCoin</title>
@@ -7,6 +6,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
@@ -21,6 +22,7 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 /* First image (Logo. Full height) */
 .bgimg-1 {
     /* background-image: url('/images/mountain.jpg'); */
@@ -29,8 +31,19 @@ body, html {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-    min-height: 75%;
+  background-size: cover;;
+    min-height: 100%;
+    text-align: center;
+}
+.XD
+{
+    background: url("http://media.idownloadblog.com/wp-content/uploads/2016/02/Alex-Muench-Minimalist-Wallpaper-Desktop-1920x1080.png")
+    no-repeat  fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;;
+    min-height: 100%;
     text-align: center;
 }
 
@@ -46,28 +59,87 @@ body, html {
 
 .chat {
   border-radius: 5px 5px 0 0;
-  background: #E71D36;
+  background: #ddd;
   padding: 5px;
   width: 225px;  
   position: fixed;
   bottom: 0;
   right: 10px;
-  color: #FFF;
+  color: #888;
   text-align: center;
 }
+.form-style-8{
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
 
-.chat1 {
-  border-radius: 5px 5px 0 0;
-  background: #2EC4B6;
-  padding: 5px;
-  width: 225px;  
-  position: fixed;
-  bottom: 0;
-  left: 10px;
-  color: #FFF;
-  text-align: center;
 }
-
+.form-style-8 h2{
+    background: #4D4D4D;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select 
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+.form-style-8 textarea{
+    resize:none;
+    overflow: hidden;
+}
+.form-style-8 input[type="button"], 
+.form-style-8 input[type="submit"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.form-style-8 input[type="button"]:hover, 
+.form-style-8 input[type="submit"]:hover {
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
 .wrapper {
     text-align: center;
 }
@@ -84,14 +156,14 @@ button {
 </style>
 
 <!-- Begin HTML Body -->
-<body>
+<body class="XD">
 
 <!-- Set favicon -->
 <link rel="icon" href="favicon.png">
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
+  <div class="w3-bar" id="myNavbar" style="text-align:left">
     <!-- Icon at top of page -->
         <img src="favicon.png" height="100" width="100">
   </div>
@@ -101,22 +173,32 @@ button {
   </div>
 </div>
 
+
 <!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-  <div class="w3-display-middle" style="white-space:nowrap;">
-    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide opacity-animate" style="opacity: 0.8">WELCOME TO LENDCOIN.</span>
-  
-
-    <!-- Lend/Borrow Section -->
-   <div class="lend-borrow" id="lb" style="display: flex; justify-content: space-around opacity-animate"> 
-       <a href="lend.html"> <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">LEND</button> </a>
-       <a href="borrow.html"><button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">BORROW</button></a>
-        </div>
+<div class="form-style-8 w3-container w3-light-grey">
+        <h2>Got it! Here's your information</h2>
+        Public key:
+        <br>
+        <div class="w3-padding-small w3-grey w3-center" style="width:100%">5A39</div>
+        <br>
+        Private key:
+        <br>
+        <div class="w3-padding-small w3-grey w3-center" style="width:100%">5A39</div>
+        <br>
+        NOTE: Save your private key. DO NOT LOSE IT AND DO NOT SHARE IT WITH OTHERS.
+      </div>
+ 
     </div>
-
-    </div>
+      <script type="text/javascript">
+        //auto expand textarea
+        function adjust_textarea(h) {
+            h.style.height = "20px";
+            h.style.height = (h.scrollHeight)+"px";
+        }
+        </script>
+       
 </div>
-    
+
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64 w3-opacity ">
   <p>Created with <i class="fa fa-heart"></i> by <a href="https://github.com/cowboy63/LendCoin" title="The Bois" target="_blank" class="w3-hover-text-green">The Bois</a> at HackUTD</p>
