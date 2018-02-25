@@ -4,6 +4,9 @@ package net.lendcoin.client;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+<<<<<<< HEAD
+import net.lendcoin.core.BlockChain;
+=======
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
@@ -20,11 +23,18 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 import net.lendcoin.core.Transaction;
+import net.lendcoin.miner.LCMiner;
 
+<<<<<<< HEAD
+public class LCClient {
+	public static Wallet MAIN_WALLET = new Wallet();
+=======
 public class LCClient extends Application{
 	
 	public static final Wallet MAIN_WALLET = new Wallet();
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	
 	public static final void lccMain(final String[] args)throws Exception
 	{
@@ -33,6 +43,9 @@ public class LCClient extends Application{
 		MAIN_WALLET.PUB_KEY = Files.readAllBytes(Paths.get("wallet_address.dat"));
 	}
 	
+<<<<<<< HEAD
+	public static void send(String destination, long amount, int delay, int duration, long fees)
+=======
 	@Override
 	public void start(Stage stage) throws Exception {
 		GridPane main = new GridPane();
@@ -150,33 +163,58 @@ public class LCClient extends Application{
 	}
 	
 	public void send(String destination, long amount, int delay, int duration, long fees)
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	{
 		
 	}
 	
-	public void receive(Transaction inbound)
+	public static void receive(Transaction inbound)
 	{
 		
 	}
 	
-	public long queryBalance()
+	public static long queryBalance()
 	{
+<<<<<<< HEAD
+		return GlobalTotals.queryBalance(MAIN_WALLET.PUB_KEY);
+=======
 		return 0;
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	}
 	
-	public long queryDebt()
+	public static long queryDebt()
 	{
+<<<<<<< HEAD
+		BlockChain bc = BlockChain.MAIN_CHAIN.findLongest();
+		return GlobalTotals.queryCredit(MAIN_WALLET.PUB_KEY, bc == null || bc.containedBlock == null ? 0 : bc.containedBlock.blockNumber);
+=======
 		return 0;
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	}
 	
-	public void startMining()
+	static Thread miner;
+	
+	public static void startMining()
 	{
-		
+		LCMiner.mining = true;
+		miner = new Thread() {
+			public void run()
+			{
+				try {
+					new LCMiner().lcmMain(new String[0]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		miner.start();
 	}
 	
-	public void stopMining()
+	public static void stopMining()
 	{
-		
+		LCMiner.mining = false;
+		miner = null;
 	}
 
 	
