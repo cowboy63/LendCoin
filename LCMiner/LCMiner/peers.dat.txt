@@ -1,2 +1,0 @@
-lend-coin.net:8333
-lend-coin.net:8332

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import net.lendcoin.core.Block;
+
 public class SHA512Miner {
 	public SHA512MinerThread[] minerThreads;
 	public SHA512Miner(int threads)
@@ -38,13 +40,13 @@ public class SHA512Miner {
 		}
 	}
 	
-	public void setTargetBlock(byte[] block)
+	public void setTargetBlock(Block block)
 	{
 		stopMining();
 		for(int i = 0; i < minerThreads.length; i++)
 		{
 			minerThreads[i] = new SHA512MinerThread();
-			minerThreads[i].block = Arrays.copyOf(block, block.length);
+			minerThreads[i].block = new Block(block.exportBinary());
 		}
 		beginMining();
 	}

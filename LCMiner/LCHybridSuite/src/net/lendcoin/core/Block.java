@@ -1,5 +1,6 @@
 package net.lendcoin.core;
 import java.security.MessageDigest;
+import java.util.Arrays;
 
 public class Block {
 	public int blockNumber;
@@ -38,6 +39,25 @@ public class Block {
 	public Block(byte[] rawData)
 	{
 		this();
+		transactionCount = (int)LCUtils.concatBigEndian(rawData, 12, 16);
+		int txSize = 1048 * transactionCount;
+		
+		blockNumber = (int)LCUtils.concatBigEndian(rawData, 0, 4);
+		blockTime = LCUtils.concatBigEndian(rawData, 4, 12);
+		difficulty = LCUtils.concatBigEndian(rawData, 16, 24);
+		
+		System.arraycopy(rawData, 24, minerID, 0, 256);
+		System.arraycopy(rawData, 280, nonce, 0, 16);
+		
+		for(int i = 0; i < transactionCount; i++)
+		{
+			byte[] transactionBinary = new byte[1048];
+			System.arraycopy(rawData, 296 + i * 1048, transactionBinary, 0, 1048);
+			transactions[i] = new Transaction(transactionBinary);
+		}
+		
+		System.arraycopy(rawData, txSize + 296, prevHash, 0, 64);
+		System.arraycopy(rawData, txSize + 360, solutionHash, 0, 64);
 	}
 	
 	public byte[] exportBinary()
@@ -86,5 +106,10 @@ public class Block {
 		byte[] blockData = exportBinary();
 		hasher.update(blockData, 0, blockData.length - 64);
 		return hasher.digest();
+	}
+	
+	public boolean validateBlock() throws Exception
+	{
+		return Arrays.equals(computeHash(), solutionHash);
 	}
 }

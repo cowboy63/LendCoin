@@ -37,6 +37,19 @@ public class Transaction {
 		amount = amt;
 	}
 	
+	public Transaction(byte[] hexSenderAddr, byte[] hexReceiverAddr, long loanFee, int paymentLength, int delay, long amt, String hexSenderConf, String hexReceiverConf)
+	{
+		this();
+		senderAddress = hexSenderAddr;
+		receiverAddress = hexReceiverAddr;
+		LCUtils.hex2Bytes(hexSenderConf, senderConfirmation);
+		LCUtils.hex2Bytes(hexReceiverConf, receiverConfirmation);
+		addedLoanFee = loanFee;
+		loanPaymentLength = paymentLength;
+		loanPaymentDelay = delay;
+		amount = amt;
+	}
+	
 	public Transaction(byte[] rawData)
 	{
 		this();
@@ -106,7 +119,7 @@ public class Transaction {
 	public void updateReceiverConfirmation(byte[] receiverPrivateKey) throws Exception
 	{
 		BigInteger privKey = new BigInteger(1, receiverPrivateKey);
-		BigInteger pubKey = new BigInteger(1, senderAddress);
+		BigInteger pubKey = new BigInteger(1, receiverAddress);
 		BigInteger plainHash = new BigInteger(1, computeBodyHash());
 		
 		BigInteger senderConf = plainHash.modPow(privKey, pubKey);
@@ -123,7 +136,7 @@ public class Transaction {
 		BigInteger plainHash = new BigInteger(1, computeBodyHash());
 		BigInteger pubKey = new BigInteger(1, receiverAddress);
 		BigInteger expected = new BigInteger(1, receiverConfirmation);
-		return plainHash.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(expected);
+		return expected.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(plainHash);
 	}
 	
 	public boolean validateSender() throws Exception
@@ -131,6 +144,6 @@ public class Transaction {
 		BigInteger plainHash = new BigInteger(1, computeBodyHash());
 		BigInteger pubKey = new BigInteger(1, senderAddress);
 		BigInteger expected = new BigInteger(1, senderConfirmation);
-		return plainHash.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(expected);
+		return expected.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(plainHash);
 	}
 }

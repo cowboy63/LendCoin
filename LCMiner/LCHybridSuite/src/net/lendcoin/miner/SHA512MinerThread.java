@@ -3,25 +3,33 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
+import net.lendcoin.core.Block;
+import net.lendcoin.core.BlockChain;
 import net.lendcoin.core.LCUtils;
 
 public class SHA512MinerThread extends Thread {
 	protected Random randomNonceProvider = new Random();
 	public volatile long totalHashes = 0;
 	public volatile long lastHashes = 0;
+	public volatile int successes = 0;
 	protected boolean done = false;
-	public byte[] block;
+	public Block block;
 	public void run()
 	{
 		int ct = 0;
 		while(!done)
 		{
 			try {
-				long diff = LCUtils.concatBigEndian(block, 16, 24);
-				byte[] hash = hashNonce(block, 280, 16, randomNonceProvider);
+				long diff = block.difficulty;
+				byte[] hash = hashNonce(block, randomNonceProvider);
 				if(checkNonce(hash, diff))
 				{
-					LCUtils.logEvent("SUCCESS - Block mined");
+					block.solutionHash = hash;
+					BlockChain.MAIN_CHAIN.appendBlock(block);
+					successes++;
+					LCUtils.logEvent("SUCCESS - Block mined, solution nonce: " + LCUtils.bytes2Hex(block.nonce));
+					BlockChain.MAIN_CHAIN.serializeBlockchain();
+					return;
 				}
 				lastHashes++;
 				totalHashes++;
@@ -33,14 +41,13 @@ public class SHA512MinerThread extends Thread {
 		}
 	}
 	
-	public static final byte[] hashNonce(byte[] block, int nonceIndex, int nonceLength, Random nonceProvider) throws NoSuchAlgorithmException
+	public static final byte[] hashNonce(Block block, Random nonceProvider) throws Exception
 	{
-		MessageDigest hash = MessageDigest.getInstance("SHA-512");
-		for(int i = 0; i < 16; i++)
+		for(int i = 0; i < block.nonce.length; i++)
 		{
-			block[nonceIndex + i] = (byte)nonceProvider.nextInt();
+			block.nonce[i] = (byte)nonceProvider.nextInt();
 		}
-		return hash.digest(block);
+		return block.computeHash();
 	}
 	
 	public static final long countLeadingZeroes(byte[] hash)
