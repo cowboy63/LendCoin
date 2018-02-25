@@ -10,7 +10,7 @@ public class SHA512MinerThread extends Thread {
 		final byte[] nonceBuffer = new byte[16];
 		while(!done)
 		{
-			long diff = LCMiner.concatBigEndian(block, 128, 144);
+			long diff = LCUtils.concatBigEndian(block, 128, 144);
 			for(int i = 0; i < 16; i++)
 			{
 				nonceBuffer[i] = (byte)randomNonceProvider.nextInt();
@@ -19,11 +19,11 @@ public class SHA512MinerThread extends Thread {
 				byte[] hash = SHA512Miner.hashNonce(block, 2240, nonceBuffer);
 				if(SHA512Miner.checkNonce(hash, diff))
 				{
-					LCMiner.logEvent("SUCCESS - Block mined");
+					LCUtils.logEvent("SUCCESS - Block mined");
 				}
 				totalHashes++;
 			} catch (Exception e) {
-				LCMiner.logEvent("ERROR - Cannot perform block hashing; please make sure that your computer supports SHA-512 hashing");
+				LCUtils.logEvent("ERROR - Cannot perform block hashing; please make sure that your computer supports SHA-512 hashing");
 			}
 		}
 	}

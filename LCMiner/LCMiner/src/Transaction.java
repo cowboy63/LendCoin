@@ -20,10 +20,10 @@ public class Transaction {
 	public Transaction(String hexSenderAddr, String hexReceiverAddr, long loanFee, int paymentLength, int delay, long amt, String hexSenderConf, String hexReceiverConf)
 	{
 		this();
-		LCMiner.hex2Bytes(hexSenderAddr, senderAddress);
-		LCMiner.hex2Bytes(hexReceiverAddr, receiverAddress);
-		LCMiner.hex2Bytes(hexSenderConf, senderConfirmation);
-		LCMiner.hex2Bytes(hexReceiverConf, receiverConfirmation);
+		LCUtils.hex2Bytes(hexSenderAddr, senderAddress);
+		LCUtils.hex2Bytes(hexReceiverAddr, receiverAddress);
+		LCUtils.hex2Bytes(hexSenderConf, senderConfirmation);
+		LCUtils.hex2Bytes(hexReceiverConf, receiverConfirmation);
 		addedLoanFee = loanFee;
 		loanPaymentLength = paymentLength;
 		loanPaymentDelay = delay;
@@ -36,10 +36,10 @@ public class Transaction {
 		System.arraycopy(rawData, 0, senderAddress, 0, 256);
 		System.arraycopy(rawData, 256, receiverAddress, 0, 256);
 		
-		addedLoanFee = LCMiner.concatBigEndian(rawData, 512, 520);
-		loanPaymentLength = (int)LCMiner.concatBigEndian(rawData, 520, 524);
-		loanPaymentDelay = (int)LCMiner.concatBigEndian(rawData, 524, 528);
-		amount = LCMiner.concatBigEndian(rawData, 528, 536);
+		addedLoanFee = LCUtils.concatBigEndian(rawData, 512, 520);
+		loanPaymentLength = (int)LCUtils.concatBigEndian(rawData, 520, 524);
+		loanPaymentDelay = (int)LCUtils.concatBigEndian(rawData, 524, 528);
+		amount = LCUtils.concatBigEndian(rawData, 528, 536);
 		
 		System.arraycopy(rawData, 536, senderConfirmation, 0, 256);
 		System.arraycopy(rawData, 792, receiverConfirmation, 0, 256);
@@ -52,13 +52,13 @@ public class Transaction {
 		System.arraycopy(receiverAddress, 0, result, 256, 256);
 		
 		byte[] intBuffer = new byte[8];
-		LCMiner.long2Bytes(addedLoanFee, intBuffer);
+		LCUtils.long2Bytes(addedLoanFee, intBuffer);
 		System.arraycopy(intBuffer, 0,result, 512, 8);
-		LCMiner.long2Bytes(loanPaymentLength, intBuffer);
+		LCUtils.long2Bytes(loanPaymentLength, intBuffer);
 		System.arraycopy(intBuffer, 4, result, 520, 4);
-		LCMiner.long2Bytes(loanPaymentDelay, intBuffer);
+		LCUtils.long2Bytes(loanPaymentDelay, intBuffer);
 		System.arraycopy(intBuffer, 4, result, 524, 4);
-		LCMiner.long2Bytes(amount, intBuffer);
+		LCUtils.long2Bytes(amount, intBuffer);
 		System.arraycopy(intBuffer, 0, result, 528, 8);
 		
 		System.arraycopy(senderConfirmation, 0, result, 536, 256);
@@ -71,6 +71,6 @@ public class Transaction {
 	public String toString()
 	{
 		return String.format("{Sender: %s, Receiver: %s, AddedFee: %s, PaymentLength: %s, PaymentDelay: %s, Amount: %s, SenderConfirmation: %s, ReceiverConfirmation: %s}",
-				LCMiner.bytes2Hex(senderAddress), LCMiner.bytes2Hex(receiverAddress), addedLoanFee, loanPaymentLength, loanPaymentDelay, amount, LCMiner.bytes2Hex(senderConfirmation), LCMiner.bytes2Hex(receiverConfirmation));
+				LCUtils.bytes2Hex(senderAddress), LCUtils.bytes2Hex(receiverAddress), addedLoanFee, loanPaymentLength, loanPaymentDelay, amount, LCUtils.bytes2Hex(senderConfirmation), LCUtils.bytes2Hex(receiverConfirmation));
 	}
 }
