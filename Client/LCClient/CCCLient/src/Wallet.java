@@ -70,10 +70,6 @@ public class Wallet
 	
 	
 	
-	
-	
-	
-	
 	public void generateKeyPair()
 	{
 		try {
