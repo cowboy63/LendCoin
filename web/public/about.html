@@ -38,18 +38,6 @@ body, html {
     animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:0.8}
 }
 
-.chat {
-  border-radius: 5px 5px 0 0;
-  background: #ddd;
-  padding: 5px;
-  width: 225px;  
-  position: fixed;
-  bottom: 0;
-  right: 10px;
-  color: #888;
-  text-align: center;
-}
-
 .wrapper {
     text-align: center;
 }
@@ -72,12 +60,16 @@ button {
 <link rel="icon" href="favicon.png">
 
 <!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
+<div class="banner">
+    <div class="w3-bar inline-block" id="myNavbar">
+        <img src="favicon.png" height="100" width="100" style="text-align: left">
+        </div>
+  <div class="w3-bar inline-block" id="myNavbar">
     <!-- Icon at top of page -->
-        <img src="favicon.png" height="100" width="100">
+        <a href="#home" class="w3-bar-item w3-button">HOME</a>
+        <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
   </div>
-
+</div>
 <!-- Hide this text on small devices -->
 <div class="w3-col m6 w3-padding-large">
         <p>Welcome to my website. I am lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
