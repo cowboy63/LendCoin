@@ -1,4 +1,7 @@
+import java.math.BigInteger;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.util.Arrays;
 
 import javax.crypto.Cipher;
 
@@ -77,9 +80,56 @@ public class Transaction {
 				LCUtils.bytes2Hex(senderAddress), LCUtils.bytes2Hex(receiverAddress), addedLoanFee, loanPaymentLength, loanPaymentDelay, amount, LCUtils.bytes2Hex(senderConfirmation), LCUtils.bytes2Hex(receiverConfirmation));
 	}
 	
+	public byte[] computeBodyHash() throws Exception
+	{
+		MessageDigest hasher = MessageDigest.getInstance("SHA-512");
+		byte[] transactionData = Arrays.copyOfRange(exportBinary(), 0, 536);
+		return hasher.digest(transactionData);
+	}
+	
 	public void updateSenderConfirmation(byte[] senderPrivateKey) throws Exception
 	{
-		Cipher cipher = Cipher.getInstance("RSA");
-		KeyFactory keyFact = KeyFactory.getInstance("RSA");
+		BigInteger privKey = new BigInteger(1, senderPrivateKey);
+		BigInteger pubKey = new BigInteger(1, senderAddress);
+		BigInteger plainHash = new BigInteger(1, computeBodyHash());
+		
+		BigInteger senderConf = plainHash.modPow(privKey, pubKey);
+		byte[] confBuffer = senderConf.toByteArray();
+		
+		for(int i = 0; i < confBuffer.length; i++)
+		{
+			senderConfirmation[senderConfirmation.length - i - 1] = confBuffer[confBuffer.length - i - 1];
+		}
+	}
+	
+	public void updateReceiverConfirmation(byte[] receiverPrivateKey) throws Exception
+	{
+		BigInteger privKey = new BigInteger(1, receiverPrivateKey);
+		BigInteger pubKey = new BigInteger(1, senderAddress);
+		BigInteger plainHash = new BigInteger(1, computeBodyHash());
+		
+		BigInteger senderConf = plainHash.modPow(privKey, pubKey);
+		byte[] confBuffer = senderConf.toByteArray();
+		
+		for(int i = 0; i < confBuffer.length; i++)
+		{
+			receiverConfirmation[receiverConfirmation.length - i - 1] = confBuffer[confBuffer.length - i - 1];
+		}
+	}
+	
+	public boolean validateReceiver() throws Exception
+	{
+		BigInteger plainHash = new BigInteger(1, computeBodyHash());
+		BigInteger pubKey = new BigInteger(1, receiverAddress);
+		BigInteger expected = new BigInteger(1, receiverConfirmation);
+		return plainHash.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(expected);
+	}
+	
+	public boolean validateSender() throws Exception
+	{
+		BigInteger plainHash = new BigInteger(1, computeBodyHash());
+		BigInteger pubKey = new BigInteger(1, senderAddress);
+		BigInteger expected = new BigInteger(1, senderConfirmation);
+		return plainHash.modPow(LCUtils.STANDARD_EXPONENT, pubKey).equals(expected);
 	}
 }

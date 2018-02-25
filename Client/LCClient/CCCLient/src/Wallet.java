@@ -26,16 +26,15 @@ public class Wallet
 				for(int x =0; x < Blockchain.blockchain.get(i).transactionCount; x++)
 				{
 					// if you are the recipeint add amount
-					if(true)
+					if(equalB(Blockchain.blockchain.get(i).transactions[x].receiverAddress, publicKey.getEncoded()))
 					{
 						amount += Blockchain.blockchain.get(i).transactions[x].amount;
 					}
 					// if you are sendser subtract
-					if(true)
+					if(equalB(Blockchain.blockchain.get(i).transactions[x].senderAddress, publicKey.getEncoded()))
 					{
-						amount += Blockchain.blockchain.get(i).transactions[x].amount;
-					}
-					
+						amount -= Blockchain.blockchain.get(i).transactions[x].amount;
+					}					
 				}
 			}
 		}
@@ -43,6 +42,17 @@ public class Wallet
 		return amount;
 	}
 	
+	public boolean equalB(byte[] ar, byte[] ar2)
+	{
+		for(int i =0; i < ar.length; i++)
+		{
+			if(ar[i]!=ar2[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	public Transaction transferFunds(PublicKey recipient, long amount, long loanFee, int loanPaymentLength, int loanPaymentDelay) throws Exception
@@ -53,11 +63,14 @@ public class Wallet
 			return null;
 		}
 		
+		Transaction temp = new Transaction(LCUtils.bytes2Hex(publicKey.getEncoded()), LCUtils.bytes2Hex(recipient.getEncoded()), loanFee, loanPaymentLength, loanPaymentDelay, amount, "", "");
 		
-		
-		return null;
-		
+		return temp;
 	}
+	
+	
+	
+	
 	
 	
 	
