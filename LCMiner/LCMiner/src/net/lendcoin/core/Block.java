@@ -1,3 +1,4 @@
+package net.lendcoin.core;
 import java.security.MessageDigest;
 
 public class Block {
