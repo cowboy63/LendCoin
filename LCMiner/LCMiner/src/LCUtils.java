@@ -1,9 +1,11 @@
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 public class LCUtils {
+	public static final BigInteger STANDARD_EXPONENT = new BigInteger("65537");
 	private static final DateTimeFormatter STANDARD_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	public static final void logEvent(String event)
 	{
