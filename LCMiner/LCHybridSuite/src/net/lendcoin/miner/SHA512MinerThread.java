@@ -6,6 +6,7 @@ import java.util.Random;
 import net.lendcoin.core.Block;
 import net.lendcoin.core.BlockChain;
 import net.lendcoin.core.LCUtils;
+import net.lendcoin.core.PendingPool;
 
 public class SHA512MinerThread extends Thread {
 	protected Random randomNonceProvider = new Random();
@@ -20,6 +21,10 @@ public class SHA512MinerThread extends Thread {
 		while(!done)
 		{
 			try {
+				if(block == null) {
+					nextBlock();
+				}
+				randomNonceProvider = new Random();
 				long diff = block.difficulty;
 				byte[] hash = hashNonce(block, randomNonceProvider);
 				if(checkNonce(hash, diff))
@@ -29,15 +34,28 @@ public class SHA512MinerThread extends Thread {
 					successes++;
 					LCUtils.logEvent("SUCCESS - Block mined, solution nonce: " + LCUtils.bytes2Hex(block.nonce));
 					BlockChain.MAIN_CHAIN.serializeBlockchain();
-					return;
+					nextBlock();
 				}
 				lastHashes++;
 				totalHashes++;
 			} catch (Exception e) {
 				e.printStackTrace();
-				LCUtils.logEvent("ERROR - Cannot perform block hashing; please make sure that your computer supports SHA-512 hashing");
+				LCUtils.logEvent("ERROR - Cannot perform block hashing; please make sure that your computer supports SHA-512 hashing and that you are currently connected to the network");
 				done = true;
 			}
+		}
+	}
+	
+	public void nextBlock() {
+		block = new Block();
+		BlockChain last = BlockChain.MAIN_CHAIN.findLongest();
+		if(last != null && last.containedBlock != null) {
+			block.prevHash = last.containedBlock.solutionHash;
+			block.blockNumber = last.containedBlock.blockNumber + 1;
+			block.blockTime = System.currentTimeMillis();
+			block.difficulty = last.containedBlock.difficulty;
+			LCUtils.hex2Bytes(LocalMinerConfig.MINER_ADDRESS, block.minerID);
+			block.transactionCount = PendingPool.dequeueBlock(block.transactions);
 		}
 	}
 	

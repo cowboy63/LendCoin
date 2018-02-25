@@ -5,10 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import net.lendcoin.core.BlockChain;
 import net.lendcoin.core.Transaction;
+import net.lendcoin.miner.LCMiner;
 
 public class LCClient {
-	public static final Wallet MAIN_WALLET = new Wallet();
+	public static Wallet MAIN_WALLET = new Wallet();
 	
 	public static final void lccMain(final String[] args)throws Exception
 	{
@@ -16,33 +18,49 @@ public class LCClient {
 		MAIN_WALLET.PUB_KEY = Files.readAllBytes(Paths.get("wallet_address.dat"));
 	}
 	
-	public void send(String destination, long amount, int delay, int duration, long fees)
+	public static void send(String destination, long amount, int delay, int duration, long fees)
 	{
 		
 	}
 	
-	public void receive(Transaction inbound)
+	public static void receive(Transaction inbound)
 	{
 		
 	}
 	
-	public long queryBalance()
+	public static long queryBalance()
 	{
-		
+		return GlobalTotals.queryBalance(MAIN_WALLET.PUB_KEY);
 	}
 	
-	public long queryDebt()
+	public static long queryDebt()
 	{
-		
+		BlockChain bc = BlockChain.MAIN_CHAIN.findLongest();
+		return GlobalTotals.queryCredit(MAIN_WALLET.PUB_KEY, bc == null || bc.containedBlock == null ? 0 : bc.containedBlock.blockNumber);
 	}
 	
-	public void startMining()
+	static Thread miner;
+	
+	public static void startMining()
 	{
-		
+		LCMiner.mining = true;
+		miner = new Thread() {
+			public void run()
+			{
+				try {
+					new LCMiner().lcmMain(new String[0]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		miner.start();
 	}
 	
-	public void stopMining()
+	public static void stopMining()
 	{
-		
+		LCMiner.mining = false;
+		miner = null;
 	}
 }

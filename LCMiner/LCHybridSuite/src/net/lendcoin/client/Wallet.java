@@ -1,6 +1,10 @@
 package net.lendcoin.client;
 
 import java.math.BigInteger;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.Arrays;
 
 public class Wallet {
@@ -22,5 +26,16 @@ public class Wallet {
 	public boolean equals(Wallet o)
 	{
 		return Arrays.equals(PUB_KEY, o.PUB_KEY);
+	}
+	
+	public static Wallet generateWallet()throws Exception
+	{
+		KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA");
+		gen.initialize(2048);
+		KeyPair kp = gen.generateKeyPair();
+		Wallet result = new Wallet();
+		result.PRIV_KEY = ((RSAPrivateKey)kp.getPrivate()).getPrivateExponent().toByteArray();
+		result.PUB_KEY = ((RSAKey)kp.getPublic()).getModulus().toByteArray();
+		return result;
 	}
 }
