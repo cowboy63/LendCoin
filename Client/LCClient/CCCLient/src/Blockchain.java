@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.EqualizerBand;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -27,6 +28,7 @@ public class Blockchain
 		blockchain.add(new Block());
 		new Wallet();
 		System.out.println(isChainValid());
+		
 	}
 	
 	// do a try catch later :3
@@ -40,16 +42,45 @@ public class Blockchain
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
 			
-			if(!currentBlock.computeHash().equals(currentBlock.prevHash))
+			if(!equalB(currentBlock.computeHash(), currentBlock.prevHash))
 			{
 				return false;
 			}
-			if(!previousBlock.computeHash().equals(currentBlock.prevHash))
+			if(!!equalB(previousBlock.computeHash(), currentBlock.prevHash))
+			{
+				return false;
+			}
+			
+			for(int x = 0; x < currentBlock.transactionCount; x++)
+			{
+				Transaction currentT = currentBlock.transactions[x];
+				
+				if(!currentT.validateReceiver())
+				{
+					return false;
+				}
+				if(!currentT.validateSender())
+				{
+					return false;
+				}
+				
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	
+	public static boolean equalB(byte[] ar, byte[] ar2)
+	{
+		for(int i =0; i < ar.length; i++)
+		{
+			if(ar[i]!=ar2[i])
 			{
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
