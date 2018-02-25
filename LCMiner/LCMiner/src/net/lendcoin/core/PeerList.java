@@ -1,3 +1,4 @@
+package net.lendcoin.core;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.Inet4Address;

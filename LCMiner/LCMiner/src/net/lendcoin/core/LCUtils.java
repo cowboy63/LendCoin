@@ -1,8 +1,11 @@
+package net.lendcoin.core;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
+
+import net.lendcoin.miner.LocalMinerConfig;
 
 public class LCUtils {
 	public static final BigInteger STANDARD_EXPONENT = new BigInteger("65537");
@@ -29,7 +32,7 @@ public class LCUtils {
 					{
 						try
 						{
-							hex2Bytes(args[i + 1], LocalMinerConfig.MINER_ADDRESS);
+							hex2Bytes(LocalMinerConfig.MINER_ADDRESS, new byte[256]);
 						} catch (Exception e) {
 							logEvent("ERROR - cannot parse mining address; please check that your address is properly entered as a 512-digit hexadecimal string");
 						}
