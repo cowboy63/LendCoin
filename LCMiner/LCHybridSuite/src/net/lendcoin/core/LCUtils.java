@@ -2,8 +2,6 @@ package net.lendcoin.core;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 import net.lendcoin.miner.LocalMinerConfig;
 

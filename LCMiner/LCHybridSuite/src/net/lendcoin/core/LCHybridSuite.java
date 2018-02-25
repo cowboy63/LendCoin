@@ -3,7 +3,6 @@ package net.lendcoin.core;
 import net.lendcoin.client.LCClient;
 import net.lendcoin.client.Wallet;
 import net.lendcoin.core.netcode.PeerList;
-import net.lendcoin.miner.LCMiner;
 
 public class LCHybridSuite {
 	public static final void main(final String[] args)throws Exception
@@ -14,6 +13,7 @@ public class LCHybridSuite {
 		System.out.println("|/ C|                                                          |/ C|");
 		System.out.println("+===+==========================================================+===+");
 		
+		/*
 		LCUtils.logEvent("INFO - Loading last known peers...");
 		try {
 			PeerList.loadPeers();
@@ -35,8 +35,19 @@ public class LCHybridSuite {
 				LCUtils.logEvent("WARNING - Cannot locate local copy of blockchain...");
 			}
 		}
+		*/
 		
 		LCClient.lccMain(args);
+<<<<<<< HEAD
 		LCClient.startMining();
+=======
+		//Transaction tv = new Transaction(LCClient.MAIN_WALLET.PUB_KEY, LCClient.MAIN_WALLET.PUB_KEY, 20, 10, 20, 100, "00", "00");
+		//tv.updateReceiverConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
+		//tv.updateSenderConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
+		//System.out.println(tv.validateReceiver() + " " + tv.validateSender());
+		
+		
+		//LCMiner.lcmMain(args);
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 	}
 }

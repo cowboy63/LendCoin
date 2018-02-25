@@ -1,10 +1,7 @@
 package net.lendcoin.core;
 import java.math.BigInteger;
-import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.util.Arrays;
-
-import javax.crypto.Cipher;
 
 public class Transaction {
 	public byte[] senderAddress;

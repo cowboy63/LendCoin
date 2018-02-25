@@ -1,10 +1,13 @@
 package net.lendcoin.client;
 
+<<<<<<< HEAD
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAKey;
 import java.security.interfaces.RSAPrivateKey;
+=======
+>>>>>>> 0e4e14312a773eba8277acbcacd8732fddb7ac9b
 import java.util.Arrays;
 
 public class Wallet {

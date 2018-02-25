@@ -1,10 +1,8 @@
 package net.lendcoin.miner;
 import net.lendcoin.client.LCClient;
 import net.lendcoin.core.Block;
-import net.lendcoin.core.BlockChain;
 import net.lendcoin.core.LCUtils;
 import net.lendcoin.core.Transaction;
-import net.lendcoin.core.netcode.PeerList;
 
 public class LCMiner {
 	public static boolean mining = true;
