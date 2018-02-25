@@ -23,11 +23,14 @@ public class Blockchain
 {
 	static ArrayList<Block> blockchain = new ArrayList<>();
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws Exception {
+		blockchain.add(new Block());
+		new Wallet();
+		System.out.println(isChainValid());
 	}
 	
-	public static boolean isChainValid()
+	// do a try catch later :3
+	public static boolean isChainValid() throws Exception
 	{
 		Block currentBlock;
 		Block previousBlock;
@@ -37,18 +40,17 @@ public class Blockchain
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
 			
-			if(!currentBlock.getHash().equals(currentBlock.getPreviosHash()))
+			if(!currentBlock.computeHash().equals(currentBlock.prevHash))
 			{
 				return false;
 			}
-			if(!previousBlock.getHash().equals(currentBlock.getPreviosHash()))
+			if(!previousBlock.computeHash().equals(currentBlock.prevHash))
 			{
 				return false;
 			}
 		}
 		
 		return true;
-		
 	}
 	
 }
