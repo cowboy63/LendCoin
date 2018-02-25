@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html>
 <title>LendCoin</title>
@@ -23,8 +24,13 @@ body, html {
 /* First image (Logo. Full height) */
 .bgimg-1 {
     /* background-image: url('/images/mountain.jpg'); */
-    background-image: url('/images/plain.jpg');
-    min-height: 100%;
+    background: url("https://media.idownloadblog.com/wp-content/uploads/2016/02/Alex-Muench-Minimalist-Wallpaper-Desktop-1920x1080.png")
+    no-repeat  fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;;
+    min-height: 75%;
     text-align: center;
 }
 
@@ -40,13 +46,25 @@ body, html {
 
 .chat {
   border-radius: 5px 5px 0 0;
-  background: #ddd;
+  background: #E71D36;
   padding: 5px;
   width: 225px;  
   position: fixed;
   bottom: 0;
   right: 10px;
-  color: #888;
+  color: #FFF;
+  text-align: center;
+}
+
+.chat1 {
+  border-radius: 5px 5px 0 0;
+  background: #2EC4B6;
+  padding: 5px;
+  width: 225px;  
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+  color: #FFF;
   text-align: center;
 }
 
@@ -91,8 +109,8 @@ button {
 
     <!-- Lend/Borrow Section -->
    <div class="lend-borrow" id="lb" style="display: flex; justify-content: space-around opacity-animate"> 
-        <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">LEND</button>
-        <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">BORROW</button>
+       <a href="lend.html"> <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">LEND</button> </a>
+       <a href="borrow.html"><button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px; opacity: 0.9">BORROW</button></a>
         </div>
     </div>
 
@@ -100,14 +118,59 @@ button {
 </div>
 
 <div class='chat'>
-        🗪<a href="/images/mountain.jpg" title="Chat with a lender" target="_blank" class="w3-hover-text-green">
-        Chat with a lender
+        <a href="newuser.html" title="Are you new?" target="_blank" class="w3-hover-text-black">
+        Are you new?
         </a>
  </div>
-
+ <div class='chat1'>
+        <a href="borrowers.html" title="Wanna see borrower requests?" target="_blank" class="w3-hover-text-black">
+        Wanna see borrower requests?
+        </a>
+ </div>
+ <div class="content how-block" style="text-align:center" >
+    <h2 class="content-head is-center">How does it work?</h2>
+    </div>
+    
+ <div class="step-feature-text" style="text-align:center" >
+    <h3>1. New Users</h3>
+    <p>Create a new wallet</p>
+    </div>
+    </section>
+    <section class="step-feature reverse" style="text-align:center" >
+    <div class="step-feature-image">
+    <img src="images/user.png"height="100" width="100">
+    </div>
+    <div class="step-feature-text">
+    <h3>2. Starting Out</h3>
+    <p>You start with a balance of $0, and mine to earn 100 coins per block
+    </p>
+    </div>
+    </section>
+    <section class="step-feature">
+    <div class="step-feature-image"style="text-align:center">
+    <img src="images/pickaxe.png"height="100" width="100">
+    </div>
+    <div class="step-feature-text" style="text-align:center" >
+    <h3>3. Lend or Borrow</h3>
+    <p>Once you have coins you can lend or borrow them. The buttons on this site lead to a forum to post lend or borrow requests</p>
+    </div>
+    <section class="step-feature">
+        <div class="step-feature-image"style="text-align:center">
+        <img src="images/coin.jpg"height="125" width="125">
+    </div>
+    
+    <div class="content why-block" style="text-align:center" >
+    <h2 class="content-head is-center">Why do I need this?</h2>
+    <p>
+    This is a way to lend in a psuedo anonymous way, allowing lenders and borrows to communicate directly without having to go through a third party.
+    </p>
+    <p>
+    Easy lending and borrowing with little hassle
+    </p>
+    </div>
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
-  <p>Created with ❤ by <a href="https://github.com/cowboy63/LendCoin" title="The Bois" target="_blank" class="w3-hover-text-green">The Bois</a> at HackUTD</p>
+<footer class="w3-center w3-black w3-padding-64 w3-opacity ">
+  <p>Created with <i class="fa fa-heart"></i> by <a href="https://github.com/cowboy63/LendCoin" title="The Bois" target="_blank" class="w3-hover-text-green">The Bois</a> at HackUTD</p>
 </footer>
 
 </body>
