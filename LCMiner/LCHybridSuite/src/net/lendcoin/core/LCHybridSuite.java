@@ -40,6 +40,8 @@ public class LCHybridSuite {
 		tv.updateReceiverConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
 		tv.updateSenderConfirmation(LCClient.MAIN_WALLET.PUB_KEY);
 		System.out.println(tv.validateReceiver() + " " + tv.validateSender());
+		
+		
 		//LCMiner.lcmMain(args);
 	}
 }
