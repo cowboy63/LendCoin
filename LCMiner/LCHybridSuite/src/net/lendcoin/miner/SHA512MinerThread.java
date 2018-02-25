@@ -1,6 +1,4 @@
 package net.lendcoin.miner;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import net.lendcoin.core.Block;
