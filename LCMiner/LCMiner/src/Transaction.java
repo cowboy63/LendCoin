@@ -1,3 +1,6 @@
+import java.security.KeyFactory;
+
+import javax.crypto.Cipher;
 
 public class Transaction {
 	public byte[] senderAddress;
@@ -72,5 +75,11 @@ public class Transaction {
 	{
 		return String.format("{Sender: %s, Receiver: %s, AddedFee: %s, PaymentLength: %s, PaymentDelay: %s, Amount: %s, SenderConfirmation: %s, ReceiverConfirmation: %s}",
 				LCUtils.bytes2Hex(senderAddress), LCUtils.bytes2Hex(receiverAddress), addedLoanFee, loanPaymentLength, loanPaymentDelay, amount, LCUtils.bytes2Hex(senderConfirmation), LCUtils.bytes2Hex(receiverConfirmation));
+	}
+	
+	public void updateSenderConfirmation(byte[] senderPrivateKey) throws Exception
+	{
+		Cipher cipher = Cipher.getInstance("RSA");
+		KeyFactory keyFact = KeyFactory.getInstance("RSA");
 	}
 }
