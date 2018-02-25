@@ -35,4 +35,14 @@ public class LCClient {
 	{
 		
 	}
+	
+	public void startMining()
+	{
+		
+	}
+	
+	public void stopMining()
+	{
+		
+	}
 }
